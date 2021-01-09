@@ -1,0 +1,67 @@
+[
+  {
+    "key": "L1",
+    "sub_sections": [
+      {
+        "key": "L11",
+        "data_type": "digits",
+        "max_length": 1
+      },
+      {
+        "key": "L12",
+        "data_type": "word_characters",
+        "max_length": 3
+      },
+      {
+        "key": "L13",
+        "data_type": "word_characters",
+        "max_length": 2
+      }
+    ]
+  },
+  {
+    "key": "L2",
+    "sub_sections": [
+      {
+        "key": "L21",
+        "data_type": "word_characters",
+        "max_length": 1
+      },
+      {
+        "key": "L22",
+        "data_type": "digits",
+        "max_length": 1
+      },
+      {
+        "key": "L23",
+        "data_type": "word_characters",
+        "max_length": 2
+      }
+    ]
+  },
+  {
+    "key": "L3",
+    "sub_sections": [
+      {
+        "key": "L31",
+        "data_type": "word_characters",
+        "max_length": 1
+      }
+    ]
+  },
+  {
+    "key": "L4",
+    "sub_sections": [
+      {
+        "key": "L41",
+        "data_type": "word_characters",
+        "max_length": 1
+      },
+      {
+        "key": "L42",
+        "data_type": "digits",
+        "max_length": 6
+      }
+    ]
+  }
+]

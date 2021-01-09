@@ -1,0 +1,6 @@
+L11 field under section L1 fails the max length (expected: 1) validation, however it passes the data type (digits) validation
+L12 field under section L1 fails all the validation criteria. 
+L13 field under segment L1 passes all the validation criteria. 
+
+L41 field under section L4 fails the data type (expected: word_characters) validation, however it passes the max length (1) validation
+L42 field under section L4 is missing.
