@@ -9,7 +9,7 @@
   },
   {
     "code": "E03",
-    "message_template": "LXY field under section LX fails the max length (expected: {data_type}) validation, however it passes the data type ({data_type}) validation"
+    "message_template": "LXY field under section LX fails the max length (expected: {max_length}) validation, however it passes the data type ({data_type}) validation"
   },
   {
     "code": "E04",
