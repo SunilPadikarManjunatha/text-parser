@@ -1,4 +1,7 @@
 from unittest import TestCase
+import sys
+import os
+sys.path.insert(1, os.path.abspath(os.path.dirname(os.path.abspath(__file__))+"/.."))
 from input_parser import (
 	make_path, 
 	make_key_index_dict,
@@ -9,16 +12,14 @@ from input_parser import (
 	check_max_length,
 	process_input_row,
 )
-import os
-from const import INPUT_HEADERS
+
 import pandas as pd
 import json
-import math
 
 class Tests(TestCase):
 
 	def setUp(self):
-		self.base_path = os.path.dirname(os.path.abspath(__file__))
+		self.base_path = os.path.abspath(os.path.dirname(os.path.abspath(__file__))+"/..")
 		self.std_defs = [
 			{
 				"key": "L1",
