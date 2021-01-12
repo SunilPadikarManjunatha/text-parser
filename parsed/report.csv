@@ -9,6 +9,6 @@ L1,L11,word_characters,digits,2,1,E04
 L1,L12,word_characters,word_characters,5,3,E03
 L1,L13,,word_characters,,2,E05
 L3,L31,others,word_characters,1,1,E02
-L4,L41,others,word_characters,0,1,E04
+L4,L41,others,word_characters,0,1,E02
 L4,L42,digits,digits,8,6,E03
 L3,L31,others,word_characters,1,1,E02
