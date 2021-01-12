@@ -9,7 +9,6 @@ from const import *
 
 logging.basicConfig(
 	filename='input_parser.log',
-	encoding='utf-8',
 	level=logging.DEBUG,
 	format=
 	'%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
@@ -43,10 +42,11 @@ def process_input(df, std_def_key_index, error_codes):
 	summary_list = []
 	for row in df.iterrows():
 		section = row[1]['Section']
-		sub_sections = std_def_key_index[section]['sub_sections']
-		process_input_row(
-			row, section, sub_sections, report_list, error_codes, summary_list
-		)
+		if section in std_def_key_index:
+			sub_sections = std_def_key_index[section]['sub_sections']
+			process_input_row(
+				row, section, sub_sections, report_list, error_codes, summary_list
+			)
 	return (report_list, summary_list)
 
 
