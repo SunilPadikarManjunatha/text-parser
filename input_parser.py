@@ -77,7 +77,7 @@ def process_input_row(
 		is_length_matched = False
 		given_len = ''
 
-		if value == value:
+		if value is not None and value == value:
 			given_dt = get_given_data_type(value)
 			logging.info('Validating field %s=>%s', section, sub_section)
 			given_len = len(str(value))
@@ -129,23 +129,21 @@ def write_summary(summary_list):
 
 def get_given_data_type(value):
 	"""Return given data-type of a field."""
-	given_dt = ''
-
-	if not re.search(DIGITS_PATTERS, str(value)):
-		given_dt = DIGITS_TYPE
+	try:
 		value = int(value)
-	elif not re.search(WORD_CHARACTERS_PATTERN, str(value)):
-		given_dt = WORD_CHARACTERS_TYPE
-	else:
-		given_dt = OTHERS_TYPE
+		return DIGITS_TYPE
+	except:
+		pass
 
-	return given_dt
-
+	if value and all(x.isalpha() or x.isspace() for x in value):
+		return WORD_CHARACTERS_TYPE
+	
+	return OTHERS_TYPE
 
 def check_max_length(max_length, value):
 	"""Return True if expected length of a field is equal to actual length of
 	the filed."""
-	if max_length == len(str(value)):
+	if value and len(str(value)) <= max_length:
 		return True
 
 	return False
@@ -165,6 +163,25 @@ def get_error_code(given_dt, data_type, given_len):
 
 	return error_code
 
+def build_input_and_column_names(input_file):
+	"""
+		Return 2D array of input fields and column headers
+	"""
+	count = 0
+	input_list = []
+	with open(input_file, 'r') as f:
+		lines = f.readlines()
+
+		for l in lines:
+			columns = l.replace('\n', '').split(DELIMITER)
+			input_list.append(columns)
+			column_count = len(columns)
+			count = column_count if count < column_count else count
+
+	f.close()
+
+	column_names = [str(i) for i in range(1, count)]
+	return (input_list, column_names)
 
 def main():
 	logging.info('Started!!!')
@@ -177,9 +194,8 @@ def main():
 		json.load(open(make_path('error_codes.json'))), 'code'
 	)
 	logging.info('Read error_codes.json')
-	input_df = pd.read_csv(
-		make_path(INPUT_FILE), delimiter=DELIMITER, names=INPUT_HEADERS
-	)
+	input_list, column_names = build_input_and_column_names(make_path(INPUT_FILE))
+	input_df = pd.DataFrame(input_list, columns= INPUT_DEFAULT_HEADER + column_names)
 	logging.info('Parsed input_file.txt')
 	report_list, message_list = process_input(
 		input_df, std_def_key_index, error_codes
@@ -190,4 +206,6 @@ def main():
 
 
 if __name__ == '__main__':
+	print("Started!")
 	main()
+	print("Finished!")

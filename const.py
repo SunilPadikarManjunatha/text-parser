@@ -7,13 +7,9 @@ REPORT_COLUMNS =  [
     "Expected MaxLength",
     "Error Code",
     ]
-INPUT_HEADERS = ["Section", "1", "2", "3"]
+INPUT_DEFAULT_HEADER = ["Section"]
 DELIMITER = "&"
 INPUT_FILE = "input_file.txt"
-
-#digits and word_characters regx
-DIGITS_PATTERS = "[^0-9]+"
-WORD_CHARACTERS_PATTERN = "[^A-Za-z ]+"
 
 #Types
 DIGITS_TYPE = "digits"

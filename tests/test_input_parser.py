@@ -11,6 +11,7 @@ from input_parser import (
 	get_given_data_type,
 	check_max_length,
 	process_input_row,
+	build_input_and_column_names
 )
 
 import pandas as pd
@@ -93,6 +94,11 @@ class Tests(TestCase):
 		report, summary = self._process_input(pd.DataFrame([["L1", "-"]], columns = ["Section", "1"]))
 		self.assertListEqual(report, [["L1", "L11", "others", "digits", 1 , 1, "E02"]])
 		self.assertListEqual(summary, ['L11 field under section L1 fails the data type (expected: digits) validation, however it passes the max length (1) validation\n'])
+	
+	def test_process_input_E02_space(self):
+		report, summary = self._process_input(pd.DataFrame([["L1", ""]], columns = ["Section", "1"]))
+		self.assertListEqual(report, [["L1", "L11", "others", "digits", 0 , 1, "E04"]])
+		self.assertListEqual(summary, ['L11 field under section L1 fails all the validation criteria.\n'])
 
 	def test_process_input_E03(self):
 		report, summary = self._process_input(pd.DataFrame([["L1", 12]], columns = ["Section", "1"]))
@@ -105,7 +111,7 @@ class Tests(TestCase):
 		self.assertListEqual(summary, ['L11 field under section L1 fails all the validation criteria.\n'])
 
 	def test_process_input_E05(self):
-		report, summary = self._process_input(pd.DataFrame([["L1", float('nan')]], columns = ["Section", "1"]))
+		report, summary = self._process_input(pd.DataFrame([["L1", None]], columns = ["Section", "1"]))
 		self.assertListEqual(report, [["L1", "L11", "", "digits", '' , 1, "E05"]])
 		self.assertListEqual(summary, ['L11 field under section L1 is missing.\n'])
 
@@ -134,8 +140,9 @@ class Tests(TestCase):
 
 	def test_check_max_length(self):
 		self.assertTrue(check_max_length(2, "AS"))
-		self.assertFalse(check_max_length(2, "S"))
-		self.assertTrue(check_max_length(2, 12))
+		self.assertTrue(check_max_length(2, "S"))
+		self.assertFalse(check_max_length(1, 12))
+		self.assertFalse(check_max_length(1, "Ads"))
 
 	def test_process_input_row(self):
 		report = []
@@ -147,3 +154,8 @@ class Tests(TestCase):
 		self.assertListEqual(report, [["L1", "L11", 'digits', 'digits', 1,1, "E01"]])
 		self.assertListEqual(messages_list,["L11 field under segment L1 passes all the validation criteria.\n"])
 		self.assertEqual(len(messages_list), 1)
+
+	def test_build_input_and_column_names(self):
+		input_list, colum_names = build_input_and_column_names(os.path.join(self.base_path, "tests/test_files" , "test_input_file.txt"))
+		self.assertListEqual(colum_names, ["1", "2", "3"])
+		self.assertListEqual(input_list, [["L1", "1", "AB"], ["L2", '', "2", "34"]])
