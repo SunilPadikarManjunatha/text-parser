@@ -143,7 +143,7 @@ def get_given_data_type(value):
 def check_max_length(max_length, value):
 	"""Return True if expected length of a field is equal to actual length of
 	the filed."""
-	if value and len(str(value)) <= max_length:
+	if len(str(value)) <= max_length:
 		return True
 
 	return False
